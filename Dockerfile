@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8501 8888
 
-CMD ["streamlit", "run", "your_app.py", "&", "jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.notebook_dir=/app"]
+CMD ["sh", "-c", "streamlit run dashboard.py --server.port=8501 & jupyter notebook --port=8888 --ip=0.0.0.0 --allow-root"]
