@@ -36,5 +36,5 @@ docker run -p 8501:8501 -p 8888:8888 ghcr.io/cormeumxd/m-tech-image:latest
    docker run -p 8501:8501 -p 8888:8888 your_iamge_name
    ```
 
-   В итоге запустится сервер streamlit, используя порт 8501 и jupyter-notebook, используя порт 8888. При необходимости порт можно изменить.
-   Так же дэшборд отдельно поднят на сервере: https://cormeumxd-m-tech-dashboard-gznhlr.streamlit.app/
+В итоге запустится сервер streamlit, используя порт 8501 и jupyter-notebook, используя порт 8888. При необходимости порт можно изменить.
+Так же дэшборд отдельно поднят на сервере: https://cormeumxd-m-tech-dashboard-gznhlr.streamlit.app/
