@@ -10,6 +10,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 alpha = 0.05
 
+# load and edit data
 def load_data(file_path):
     data = pd.read_csv(file_path, quotechar="'", encoding="windows-1251")
     column_mapping = {'"Количество больничных дней': 'work_days', '""Возраст""': 'age', '""Пол"""': 'gender'}
@@ -22,16 +23,17 @@ def load_data(file_path):
     )
     return data
 
+# chi2 hypothesis
 def check_hypothesis_chi2(data, group_column, threshold):
     crosstab_return = pd.crosstab(group_column, data.work_days > threshold, margins=True)
     crosstab = pd.crosstab(group_column, data.work_days > threshold)
     stats, p_value, _, _ = chi2_contingency(crosstab)
     return stats, p_value, crosstab_return
 
+# 1st hyphothesis
 def check_gender_dependency(data, work_days_threshold, threshold, alpha):
     st.header("Проверим наличие зависимостей")
 
-    # Hypothesis 1
     st.markdown('''
         Прежде всего хочется проверить, есть ли связь между кол-вом пропусков по больничному и пола/возраста.
         Для этого создадим таблицу частот пропусков от пола/возраста. Сформулируем гипотезу $H_0$ - кол-во пропусков не зависит от пола.
@@ -50,6 +52,7 @@ def check_gender_dependency(data, work_days_threshold, threshold, alpha):
     stats, p_value, crosstab = check_hypothesis_chi2(data, data.gender, threshold)
     display_results("gender", work_days_threshold, stats, p_value, crosstab, alpha)
 
+# 2nd hyphothesis
 def check_age_dependency(data, work_days_threshold, age_threshold, threshold, alpha):
     st.subheader('Зависимость пропусков от возраста')
 
@@ -87,6 +90,5 @@ def main():
         check_gender_dependency(data, work_days_threshold, work_days_threshold, alpha)
         check_age_dependency(data, work_days_threshold, age_threshold, work_days_threshold, alpha)
 
-# Run the main function
 if __name__ == "__main__":
     main()
